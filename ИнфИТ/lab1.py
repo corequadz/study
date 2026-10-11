@@ -39,7 +39,7 @@ def to_postfix(s):
                 while opers and opers[-1] != '(':
                     res.append(opers.pop())
                 opers.pop()
-                if opers and opers[-1] == 'tan':
+                if opers and opers[-1] == 'cos':
                     res.append(opers.pop())
             
             elif elm == 'u-':
@@ -53,8 +53,8 @@ def to_postfix(s):
             cur_num += elm
         elif elm.isalpha():
             cur_word += elm
-            if cur_word == "tan":
-                opers.append("tan")
+            if cur_word == "cos":
+                opers.append("cos")
                 cur_word = ''
 
     if cur_num != '':
@@ -70,7 +70,7 @@ def to_prefix(s):
     post_str = to_postfix(s)
     st = []
     for token in post_str.split():
-        if token in ("u-", "tan"):
+        if token in ("u-", "cos"):
             a = st.pop()
             st.append(f"{token} {a}")
         elif token in ("+", "-", "*", "/", "=="):
@@ -87,8 +87,8 @@ def calculate(nums, operator):
     if operator == "u-":
         nums.append(-nums.pop())
         return
-    elif operator == "tan":
-        nums.append(tan(nums.pop()))
+    elif operator == "cos":
+        nums.append(cos(nums.pop()))
         return
 
     b = nums.pop()
@@ -134,7 +134,7 @@ def parser(s):
                 while opers and opers[-1] != '(':
                     calculate(nums, opers.pop())
                 opers.pop()
-                if opers and opers[-1] == 'tan':
+                if opers and opers[-1] == 'cos':
                     calculate(nums, opers.pop())
             
             elif elm == 'u-':
@@ -148,8 +148,8 @@ def parser(s):
             cur_num += elm
         elif elm.isalpha():
             cur_word += elm
-            if cur_word == "tan":
-                opers.append("tan")
+            if cur_word == "cos":
+                opers.append("cos")
                 cur_word = ''
 
     if cur_num != '':
